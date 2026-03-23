@@ -40,8 +40,10 @@ def fetch_dexcom_data(hours_back):
             
         return current, history
     except Exception as e:
-        # Returns the error itself to be displayed in the UI
-        return e, None
+        # CRITICAL: We log the error but return None. 
+        # Caching a 'None' value is safe; caching a pydexcom Error object is not.
+        print(f"Internal Dexcom Error: {e}") 
+        return None, None
 
 # --- Dashboard UI ---
 st.title("🩸 Glucose Command Center")
