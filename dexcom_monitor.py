@@ -33,6 +33,15 @@ def fetch_dexcom_data(hours_back):
             history = dexcom.get_glucose_readings(period=hours_back * 60, max_count=288)
             
         return current, history, status
+        try:
+    dexcom = Dexcom(username=USER, password=PASS, region=target_region)
+    current = dexcom.get_current_glucose_reading()
+    
+    # DEBUG LOGS
+    if current is None:
+        print("DEBUG: Authentication successful, but get_current_glucose_reading() returned None.")
+    else:
+        print(f"DEBUG: Successfully fetched reading: {current.value}")
     except Exception as e:
         return None, None, f"❌ Error: {str(e)}"
 
