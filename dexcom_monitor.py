@@ -93,8 +93,8 @@ else:
             y='s:Q', y2='e:Q'
         )
 
-        # 🟥 Red "Low" Shading (from 40 to your low_limit)
-        low_df = pd.DataFrame([{'s': 40, 'e': low_limit}])
+        # 🟥 Red "Low" Shading (from 0 to your low_limit)
+        low_df = pd.DataFrame([{'s': 0, 'e': low_limit}])
         low_box = alt.Chart(low_df).mark_rect(opacity=0.1, color='red').encode(
             y='s:Q', y2='e:Q'
         )
