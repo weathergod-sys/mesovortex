@@ -101,7 +101,7 @@ else:
 
         # 🟧 Optional: High Range Shading (from high_limit to 400)
         high_df = pd.DataFrame([{'s': high_limit, 'e': 400}])
-        high_box = alt.Chart(high_df).mark_rect(opacity=0.05, color='orange').encode(
+        high_box = alt.Chart(high_df).mark_rect(opacity=0.1, color='orange').encode(
             y='s:Q', y2='e:Q'
         )
 
