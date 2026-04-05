@@ -87,13 +87,21 @@ else:
             tooltip=['Time', 'Glucose']
         ).properties(height=400).interactive()
         
-        # Green Target Range Shading
+        # 🟩 Green Target Range Shading
         range_df = pd.DataFrame([{'s': low_limit, 'e': high_limit}])
         range_box = alt.Chart(range_df).mark_rect(opacity=0.1, color='green').encode(
             y='s:Q', y2='e:Q'
         )
-        
-        st.altair_chart(range_box + chart, use_container_width=True)
+
+        # 🟥 Red "Low" Shading (from 40 to your low_limit)
+        low_df = pd.DataFrame([{'s': 40, 'e': low_limit}])
+        low_box = alt.Chart(low_df).mark_rect(opacity=0.1, color='red').encode(
+            y='s:Q', y2='e:Q'
+        )
+
+        # Combine all layers
+        # Layering order matters: put boxes first so the line stays on top
+        st.altair_chart(range_box + low_box + chart, use_container_width=True)
         
         with st.expander("Show Recent Log"):
             st.dataframe(df.sort_values(by="Time", ascending=False))
