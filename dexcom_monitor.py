@@ -99,9 +99,15 @@ else:
             y='s:Q', y2='e:Q'
         )
 
+        # 🟧 Optional: High Range Shading (from high_limit to 400)
+        high_df = pd.DataFrame([{'s': high_limit, 'e': 400}])
+        high_box = alt.Chart(high_df).mark_rect(opacity=0.05, color='orange').encode(
+            y='s:Q', y2='e:Q'
+        )
+
         # Combine all layers
         # Layering order matters: put boxes first so the line stays on top
-        st.altair_chart(range_box + low_box + chart, use_container_width=True)
+        st.altair_chart(low_box + range_box + high_box + chart, use_container_width=True)
         
         with st.expander("Show Recent Log"):
             st.dataframe(df.sort_values(by="Time", ascending=False))
